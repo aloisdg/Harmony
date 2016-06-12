@@ -108,5 +108,12 @@ namespace Harmony {
                 L = setBetween (hsl.L + getLightness (shade), 0, 100)
             }.ToColor ());
         }
+
+        public Temperature GetTemperature(Color color) {
+            const double max = 330;
+            const double min = 150;
+            var hsl = color.ToHsl ();
+            return hsl.H > max && hsl.H < min ? Temperature.Warm : Temperature.Cool;
+        }
     }
 }

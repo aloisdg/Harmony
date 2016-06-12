@@ -118,5 +118,13 @@ namespace Harmony.Tests {
             Assert.AreEqual (Color.FromArgb (210, 69, 243), result[5]);
             Assert.AreEqual (Color.FromArgb (216, 93, 245), result[6]);
         }
+
+        [Test]
+        public void TestTemperature() { // darker to lighter
+            var main = _harmony.GetTemperature(_color);
+            var complementary = _harmony.GetTemperature(Color.FromArgb (62, 240, 21));
+            Assert.AreEqual (Temperature.Cool, main);
+            Assert.AreEqual (Temperature.Warm, complementary);
+        }
     }
 }

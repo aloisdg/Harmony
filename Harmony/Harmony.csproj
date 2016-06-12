@@ -37,6 +37,7 @@
     <Compile Include="Harmony.cs" />
     <Compile Include="HarmonyExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Temperature.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ColorMine, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
