@@ -44,7 +44,7 @@ namespace Harmony {
             }.ToColor ());
         }
 
-        //private static IEnumerable<Color> ScaleTo(Color color, double size, dynamic scale) {
+        //private static IEnumerable<Color> ScaleTo(Color color, double size, double scale) {
         //    Func<double, bool> isFinite = x => !double.IsInfinity (x) && !double.IsNaN (x);
         //    if (isFinite (size)) {
         //        size = 10;
@@ -110,10 +110,10 @@ namespace Harmony {
         }
 
         public Temperature GetTemperature(Color color) {
-            const double max = 330;
-            const double min = 150;
+            const int zero = 30;
+            Func<double, double> moveToZero = x => (x + zero) % 360;
             var hsl = color.ToHsl ();
-            return hsl.H > max && hsl.H < min ? Temperature.Warm : Temperature.Cool;
+            return moveToZero(hsl.H) < 180 ? Temperature.Warm : Temperature.Cool;
         }
 
         public short GetTemperatureAsNumber(Color color) {
