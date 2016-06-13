@@ -46,6 +46,22 @@ namespace Harmony.Tests {
         }
 
         [Test]
+        public void TestAnaloguousLeft() {
+            var result = _harmony.Harmonize (_color, "analogousLeft").ToArray ();
+            Assert.AreEqual (_color, result[0]);
+            Assert.AreEqual (Color.FromArgb (21, 62, 240), result[1]);
+            Assert.AreEqual (Color.FromArgb (89, 21, 240), result[2]);
+        }
+
+        [Test]
+        public void TestAnaloguousRight() {
+            var result = _harmony.Harmonize (_color, "analogousRight").ToArray ();
+            Assert.AreEqual (_color, result[0]);
+            Assert.AreEqual (Color.FromArgb (240, 21, 172), result[1]);
+            Assert.AreEqual (Color.FromArgb (240, 21, 62), result[2]);
+        }
+
+        [Test]
         public void TestAnaloguous() {
             var result = _harmony.Harmonize (_color, "analogous").ToArray ();
             Assert.AreEqual (_color, result[0]);

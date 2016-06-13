@@ -30,7 +30,9 @@ namespace Harmony {
             { "tetradicRight", new[] { 0, 2, 6, 8 }},
             { "tetradic", new[] { 0, 3, 6, 9 }}, // also called square
             { "tetradicLeft", new[] { 0, 4, 6, 10 }},
+            { "analogousRight", new[] { 0, 1, 2 }},
             { "analogous", new[] { 0, 1, 11 }},
+            { "analogousLeft", new[] { 0, 10, 11 }},
             { "diadRight", new[] { 0, 2 }},
             { "diadLeft", new[] { 0, 10 }}
         };
@@ -38,7 +40,7 @@ namespace Harmony {
         private static IEnumerable<Color> Harmonize(Color color, IEnumerable<int> degrees) {
             var hsl = color.ToHsl ();
             return degrees.Select (degree => new Hsl {
-                H = (360 + (hsl.H + 30 * degree)) % 360, // (hsl.H + degree / 360d),// % 1,
+                H = (360 + (hsl.H + 30 * degree)) % 360,
                 S = hsl.S,
                 L = hsl.L
             }.ToColor ());
