@@ -1,5 +1,8 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using ColorMine.ColorSpaces;
 using NUnit.Framework;
 
 namespace Harmony.Tests {
@@ -120,11 +123,37 @@ namespace Harmony.Tests {
         }
 
         [Test]
-        public void TestTemperature() { // darker to lighter
-            var main = _harmony.GetTemperature(_color);
-            var complementary = _harmony.GetTemperature(Color.FromArgb (62, 240, 21));
+        public void TestTemperature() {
+            var main = _harmony.GetTemperature (_color);
+            var complementary = _harmony.GetTemperature (Color.FromArgb (62, 240, 21));
             Assert.AreEqual (Temperature.Cool, main);
             Assert.AreEqual (Temperature.Warm, complementary);
+        }
+
+        [TestCase (330, ExpectedResult = 0)]
+        [TestCase (360, ExpectedResult = 33)]
+        [TestCase (0, ExpectedResult = 33)]
+        [TestCase (30, ExpectedResult = 66)]
+        [TestCase (60, ExpectedResult = 100)]
+        [TestCase (90, ExpectedResult = 66)]
+        [TestCase (120, ExpectedResult = 33)]
+        [TestCase (150, ExpectedResult = 0)]
+        [TestCase (180, ExpectedResult = -33)]
+        [TestCase (210, ExpectedResult = -66)]
+        [TestCase (240, ExpectedResult = -100)]
+        [TestCase (270, ExpectedResult = -66)]
+        [TestCase (300, ExpectedResult = -33)]
+        [TestCase (400, ExpectedResult = 77)]
+        [TestCase (40, ExpectedResult = 77)]
+        public short TestTemperatureAsNumber(int hue) { // from -100 to 100
+            var celsius = _harmony.GetTemperatureAsNumber (ToColor (new Hsl { H = hue, L = 50, S = 50}));
+            return celsius;
+        }
+
+        internal static Color ToColor(Hsl hsl) {
+            Func<double, int> round = x => (int) Math.Round (x);
+            var rgb = hsl.ToRgb ();
+            return Color.FromArgb (round (rgb.R), round (rgb.G), round (rgb.B));
         }
     }
 }

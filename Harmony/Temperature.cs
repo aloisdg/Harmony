@@ -1,7 +1,5 @@
-﻿namespace Harmony
-{
-    public enum Temperature
-    {
+﻿namespace Harmony {
+    public enum Temperature {
         Warm,
         Cool
     }

@@ -99,7 +99,7 @@ namespace Harmony {
             Func<double, double, double, double> setBetween
                 = (x, min, max) => x > min ? x < max ? x : max : min;
             Func<int, double> getLightness
-                = x => ((double) x - 3)*5;
+                = x => ((double) x - 3) * 5;
 
             var hsl = color.ToHsl ();
             return Enumerable.Range (0, 7).Select (shade => new Hsl {
@@ -114,6 +114,26 @@ namespace Harmony {
             const double min = 150;
             var hsl = color.ToHsl ();
             return hsl.H > max && hsl.H < min ? Temperature.Warm : Temperature.Cool;
+        }
+
+        public short GetTemperatureAsNumber(Color color) {
+            const int limit = 100;
+            const int maxWarm = 90;
+            const int zero = 30;
+            Func<double, double> moveToZero = x => (x + zero) % 360;
+            var hue = moveToZero (Math.Round (color.ToHsl ().H));
+
+            var shittyfix = false;
+            if (hue > 180) {
+                shittyfix = true;
+                hue -= 180;
+            }
+
+            var temperature = limit - Math.Abs (maxWarm - hue) / maxWarm * limit;
+
+            if (shittyfix)
+                temperature = -temperature;
+            return (short) temperature;
         }
     }
 }
