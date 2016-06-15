@@ -19,7 +19,7 @@
   <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
   <PropertyGroup Label="Configuration">
     <Id>Harmony</Id>
-    <Version>0.1.0</Version>
+    <Version>0.2.0-alpha</Version>
     <Title>Harmony</Title>
     <Authors>aloisdg</Authors>
     <Owners>aloisdg</Owners>
@@ -31,6 +31,7 @@
     <LicenseUrl>https://opensource.org/licenses/MPL-2.0</LicenseUrl>
     <Copyright>Copyright © aloisdg</Copyright>
     <Tags>Color Theory Harmony Scheme Analogous Monochromatic Complementary Split  Triadic Tetradic</Tags>
+    <IconUrl>https://raw.githubusercontent.com/aloisdg/Harmony/master/Assets/logo64.png</IconUrl>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="Readme.txt" />

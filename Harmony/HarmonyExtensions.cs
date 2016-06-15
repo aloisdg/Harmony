@@ -1,6 +1,5 @@
 using System;
 using System.Drawing;
-using ColorMine.ColorSpaces;
 
 namespace Harmony
 {

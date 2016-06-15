@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using ColorMine.ColorSpaces;
 using NUnit.Framework;
 
 namespace Harmony.Tests {
@@ -13,7 +12,7 @@ namespace Harmony.Tests {
 
         [Test]
         public void TestComplementary() {
-            var result = _harmony.Harmonize (_color, "complementary").ToArray ();
+            var result = _harmony.Harmonize (_color, Harmony.Schemes.Complementary).ToArray ();
             Assert.AreEqual (_color, result[0]);
             Assert.AreEqual (Color.FromArgb (62, 240, 21), result[1]);
         }
@@ -29,7 +28,7 @@ namespace Harmony.Tests {
 
         [Test]
         public void TestDoubleComplementaryRight() {
-            var result = _harmony.Harmonize (_color, "doubleComplementaryRight").ToArray ();
+            var result = _harmony.Harmonize (_color, Harmony.Schemes.DoubleComplementaryRight).ToArray ();
             Assert.AreEqual (_color, result[0]);
             Assert.AreEqual (Color.FromArgb (240, 21, 172), result[1]);
             Assert.AreEqual (Color.FromArgb (62, 240, 21), result[2]);
@@ -38,7 +37,7 @@ namespace Harmony.Tests {
 
         [Test]
         public void TestDoubleComplementaryLeft() {
-            var result = _harmony.Harmonize (_color, "doubleComplementaryLeft").ToArray ();
+            var result = _harmony.Harmonize (_color, Harmony.Schemes.DoubleComplementaryLeft).ToArray ();
             Assert.AreEqual (_color, result[0]);
             Assert.AreEqual (Color.FromArgb (172, 240, 21), result[1]);
             Assert.AreEqual (Color.FromArgb (62, 240, 21), result[2]);
@@ -47,7 +46,7 @@ namespace Harmony.Tests {
 
         [Test]
         public void TestAnaloguousLeft() {
-            var result = _harmony.Harmonize (_color, "analogousLeft").ToArray ();
+            var result = _harmony.Harmonize (_color, Harmony.Schemes.AnalogousLeft).ToArray ();
             Assert.AreEqual (_color, result[0]);
             Assert.AreEqual (Color.FromArgb (21, 62, 240), result[1]);
             Assert.AreEqual (Color.FromArgb (89, 21, 240), result[2]);
@@ -55,7 +54,7 @@ namespace Harmony.Tests {
 
         [Test]
         public void TestAnaloguousRight() {
-            var result = _harmony.Harmonize (_color, "analogousRight").ToArray ();
+            var result = _harmony.Harmonize (_color, Harmony.Schemes.AnalogousRight).ToArray ();
             Assert.AreEqual (_color, result[0]);
             Assert.AreEqual (Color.FromArgb (240, 21, 172), result[1]);
             Assert.AreEqual (Color.FromArgb (240, 21, 62), result[2]);
@@ -63,7 +62,7 @@ namespace Harmony.Tests {
 
         [Test]
         public void TestAnaloguous() {
-            var result = _harmony.Harmonize (_color, "analogous").ToArray ();
+            var result = _harmony.Harmonize (_color, Harmony.Schemes.Analogous).ToArray ();
             Assert.AreEqual (_color, result[0]);
             Assert.AreEqual (Color.FromArgb (240, 21, 172), result[1]);
             Assert.AreEqual (Color.FromArgb (89, 21, 240), result[2]);
@@ -71,7 +70,7 @@ namespace Harmony.Tests {
 
         [Test]
         public void TestSplitComplementary() {
-            var result = _harmony.Harmonize (_color, "splitComplementary").ToArray ();
+            var result = _harmony.Harmonize (_color, Harmony.Schemes.SplitComplementary).ToArray ();
             Assert.AreEqual (_color, result[0]);
             Assert.AreEqual (Color.FromArgb (172, 240, 21), result[1]);
             Assert.AreEqual (Color.FromArgb (21, 240, 89), result[2]);
@@ -79,7 +78,7 @@ namespace Harmony.Tests {
 
         [Test]
         public void TestTriadic() {
-            var result = _harmony.Harmonize (_color, "triadic").ToArray ();
+            var result = _harmony.Harmonize (_color, Harmony.Schemes.Triadic).ToArray ();
             Assert.AreEqual (_color, result[0]);
             Assert.AreEqual (Color.FromArgb (240, 199, 21), result[1]);
             Assert.AreEqual (Color.FromArgb (21, 240, 199), result[2]);
@@ -87,7 +86,7 @@ namespace Harmony.Tests {
 
         [Test]
         public void TestTetradicLeft() { // hexacolor's tetradic
-            var result = _harmony.Harmonize (_color, "tetradicLeft").ToArray ();
+            var result = _harmony.Harmonize (_color, Harmony.Schemes.TetradicLeft).ToArray ();
             Assert.AreEqual (_color, result[0]);
             Assert.AreEqual (Color.FromArgb (240, 199, 21), result[1]);
             Assert.AreEqual (Color.FromArgb (62, 240, 21), result[2]);
@@ -96,7 +95,7 @@ namespace Harmony.Tests {
 
         [Test]
         public void TestTetradic() {
-            var result = _harmony.Harmonize (_color, "tetradic").ToArray ();
+            var result = _harmony.Harmonize (_color, Harmony.Schemes.Tetradic).ToArray ();
             Assert.AreEqual (_color, result[0]);
             Assert.AreEqual (Color.FromArgb (240, 89, 21), result[1]);
             Assert.AreEqual (Color.FromArgb (62, 240, 21), result[2]);
@@ -105,7 +104,7 @@ namespace Harmony.Tests {
 
         [Test]
         public void TestTetradicRight() {
-            var result = _harmony.Harmonize (_color, "tetradicRight").ToArray ();
+            var result = _harmony.Harmonize (_color, Harmony.Schemes.TetradicRight).ToArray ();
             Assert.AreEqual (_color, result[0]);
             Assert.AreEqual (Color.FromArgb (240, 21, 62), result[1]);
             Assert.AreEqual (Color.FromArgb (62, 240, 21), result[2]);
@@ -114,14 +113,14 @@ namespace Harmony.Tests {
 
         [Test]
         public void TestDiadRight() {
-            var result = _harmony.Harmonize (_color, "diadRight").ToArray ();
+            var result = _harmony.Harmonize (_color, Harmony.Schemes.DiadRight).ToArray ();
             Assert.AreEqual (_color, result[0]);
             Assert.AreEqual (Color.FromArgb (240, 21, 62), result[1]);
         }
 
         [Test]
         public void TestDiadLeft() {
-            var result = _harmony.Harmonize (_color, "diadLeft").ToArray ();
+            var result = _harmony.Harmonize (_color, Harmony.Schemes.DiadLeft).ToArray ();
             Assert.AreEqual (_color, result[0]);
             Assert.AreEqual (Color.FromArgb (21, 62, 240), result[1]);
         }

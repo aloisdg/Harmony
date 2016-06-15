@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using ColorMine.ColorSpaces;
 
 // inspiration
 // https://github.com/skratchdot/color-harmony
@@ -21,21 +20,53 @@ namespace Harmony {
         // http://www.sensationalcolor.com/understanding-color/theory/color-relationships-creating-color-harmony-1849
         // http://www.chainstyle.com/tutorials/colscheme.html
         // http://www.easyrgb.com/index.php?X=WEEL
-        private readonly Dictionary<string, int[]> _harmonies = new Dictionary<string, int[]> {
-            { "complementary", new[] { 0, 6 }},
-            { "splitComplementary", new[] { 0, 5, 7 }},
-            { "doubleComplementaryRight", new[] { 0, 1, 6, 7 }},
-            { "doubleComplementaryLeft", new[] { 0, 5, 6, 11 }},
-            { "triadic", new[] { 0, 4, 8 }},
-            { "tetradicRight", new[] { 0, 2, 6, 8 }},
-            { "tetradic", new[] { 0, 3, 6, 9 }}, // also called square
-            { "tetradicLeft", new[] { 0, 4, 6, 10 }},
-            { "analogousRight", new[] { 0, 1, 2 }},
-            { "analogous", new[] { 0, 1, 11 }},
-            { "analogousLeft", new[] { 0, 10, 11 }},
-            { "diadRight", new[] { 0, 2 }},
-            { "diadLeft", new[] { 0, 10 }}
+        private readonly Dictionary<Schemes, int[]> _schemes = new Dictionary<Schemes, int[]> {
+            { Schemes.Complementary, new[] { 0, 6 }},
+            { Schemes.SplitComplementary, new[] { 0, 5, 7 }},
+            { Schemes.DoubleComplementaryRight, new[] { 0, 1, 6, 7 }},
+            { Schemes.DoubleComplementaryLeft, new[] { 0, 5, 6, 11 }},
+            { Schemes.Triadic, new[] { 0, 4, 8 }},
+            { Schemes.TetradicRight, new[] { 0, 2, 6, 8 }},
+            { Schemes.Tetradic, new[] { 0, 3, 6, 9 }}, // also called square
+            { Schemes.TetradicLeft, new[] { 0, 4, 6, 10 }},
+            { Schemes.AnalogousRight, new[] { 0, 1, 2 }},
+            { Schemes.Analogous, new[] { 0, 1, 11 }},
+            { Schemes.AnalogousLeft, new[] { 0, 10, 11 }},
+            { Schemes.DiadRight, new[] { 0, 2 }},
+            { Schemes.DiadLeft, new[] { 0, 10 }}
         };
+
+        private readonly Dictionary<Schemes, string> _schemesName = new Dictionary<Schemes, string> {
+            { Schemes.Complementary, "Complementary" },
+            { Schemes.SplitComplementary, "Split Complementary" },
+            { Schemes.DoubleComplementaryRight, "Double Complementary Right" },
+            { Schemes.DoubleComplementaryLeft, "Double Complementary Left" },
+            { Schemes.Triadic, "Triadic" },
+            { Schemes.TetradicRight, "Tetradic Right" },
+            { Schemes.Tetradic, "Tetradic" },
+            { Schemes.TetradicLeft, "Tetradic Left" },
+            { Schemes.AnalogousRight, "Analogous Right" },
+            { Schemes.Analogous, "Analogous" },
+            { Schemes.AnalogousLeft, "Analogous Left" },
+            { Schemes.DiadRight, "Diad Right" },
+            { Schemes.DiadLeft, "Diad Left" }
+        };
+
+        public enum Schemes {
+            Complementary,
+            SplitComplementary,
+            DoubleComplementaryRight,
+            DoubleComplementaryLeft,
+            Triadic,
+            TetradicRight,
+            Tetradic,
+            TetradicLeft,
+            AnalogousRight,
+            Analogous,
+            AnalogousLeft,
+            DiadRight,
+            DiadLeft
+        }
 
         private static IEnumerable<Color> Harmonize(Color color, IEnumerable<int> degrees) {
             var hsl = color.ToHsl ();
@@ -46,6 +77,7 @@ namespace Harmony {
             }.ToColor ());
         }
 
+        // http://stackoverflow.com/questions/801406/c-create-a-lighter-darker-color-based-on-a-system-color
         //private static IEnumerable<Color> ScaleTo(Color color, double size, double scale) {
         //    Func<double, bool> isFinite = x => !double.IsInfinity (x) && !double.IsNaN (x);
         //    if (isFinite (size)) {
@@ -66,20 +98,24 @@ namespace Harmony {
         //}
 
         //public void Add(string name, int[] degrees) {
-        //    if (_harmonies.ContainsKey (name)) //maybe useless
+        //    if (_schemes.ContainsKey (name)) //maybe useless
         //        throw new ArgumentException ("An item with the same key has already been added.");
-        //    _harmonies.Add (name, degrees);
+        //    _schemes.Add (name, degrees);
         //}
 
-        public IEnumerable<KeyValuePair<string, IEnumerable<Color>>> HarmonizeAll(Color color) {
-            return _harmonies.Select (harmony =>
-             new KeyValuePair<string, IEnumerable<Color>> (harmony.Key, Harmonize (color, harmony.Value)));
+        public IEnumerable<KeyValuePair<Schemes, IEnumerable<Color>>> HarmonizeAll(Color color) {
+            return _schemes.Select (scheme =>
+             new KeyValuePair<Schemes, IEnumerable<Color>> (scheme.Key, Harmonize (color, scheme.Value)));
         }
 
-        public IEnumerable<Color> Harmonize(Color color, string harmony) {
-            if (!_harmonies.ContainsKey (harmony))
-                throw new KeyNotFoundException (nameof (harmony)); // useless?
-            return Harmonize (color, _harmonies[harmony]);
+        public IEnumerable<Color> Harmonize(Color color, Schemes scheme) {
+            if (!_schemes.ContainsKey (scheme))
+                throw new KeyNotFoundException (nameof (scheme)); // useless?
+            return Harmonize (color, _schemes[scheme]);
+        }
+
+        public string GetName(Schemes scheme) {
+            return _schemesName[scheme];
         }
 
         //mix with black(#000000)
@@ -115,7 +151,7 @@ namespace Harmony {
             const int zero = 30;
             Func<double, double> moveToZero = x => (x + zero) % 360;
             var hsl = color.ToHsl ();
-            return moveToZero(hsl.H) < 180 ? Temperature.Warm : Temperature.Cool;
+            return moveToZero (hsl.H) < 180 ? Temperature.Warm : Temperature.Cool;
         }
 
         public short GetTemperatureAsNumber(Color color) {
