@@ -23,13 +23,7 @@ using Harmony.ColorSpace;
 
 namespace Harmony {
     public class Harmony {
-
-        public interface IScheme {
-            string Name { get; }
-            IEnumerable<int> Degrees { get; }
-        }
-
-        public abstract class Scheme : IScheme {
+        protected abstract class Scheme {
             public string Name { get; }
             public IEnumerable<int> Degrees { get; }
 
@@ -43,60 +37,60 @@ namespace Harmony {
             }
         }
 
-        public class Complementary : Scheme {
+        private class Complementary : Scheme {
             public Complementary() : base ("Complementary", new[] { 0, 6 }) { }
         }
 
-        public class SplitComplementary : Scheme {
+        private class SplitComplementary : Scheme {
             public SplitComplementary() : base ("Split Complementary", new[] { 0, 5, 7 }) { }
         }
 
-        public class DoubleComplementaryRight : Scheme {
+        private class DoubleComplementaryRight : Scheme {
             public DoubleComplementaryRight() : base ("Double Complementary Right", new[] { 0, 1, 6, 7 }) { }
         }
 
-        public class DoubleComplementaryLeft : Scheme {
+        private class DoubleComplementaryLeft : Scheme {
             public DoubleComplementaryLeft() : base ("Double Complementary Left", new[] { 0, 5, 6, 11 }) { }
         }
 
-        public class Triadic : Scheme {
+        private class Triadic : Scheme {
             public Triadic() : base ("Triadic", new[] { 0, 4, 8 }) { }
         }
 
-        public class TetradicRight : Scheme {
+        private class TetradicRight : Scheme {
             public TetradicRight() : base ("Tetradic Right", new[] { 0, 2, 6, 8 }) { }
         }
 
         // also called square
-        public class Tetradic : Scheme {
+        private class Tetradic : Scheme {
             public Tetradic() : base ("Tetradic", new[] { 0, 3, 6, 9 }) { }
         }
 
-        public class TetradicLeft : Scheme {
+        private class TetradicLeft : Scheme {
             public TetradicLeft() : base ("Tetradic Left", new[] { 0, 4, 6, 10 }) { }
         }
 
-        public class AnalogousRight : Scheme {
+        private class AnalogousRight : Scheme {
             public AnalogousRight() : base ("Analogous Right", new[] { 0, 1, 2 }) { }
         }
 
-        public class Analogous : Scheme {
+        private class Analogous : Scheme {
             public Analogous() : base ("Analogous", new[] { 0, 1, 11 }) { }
         }
 
-        public class AnalogousLeft : Scheme {
+        private class AnalogousLeft : Scheme {
             public AnalogousLeft() : base ("Analogous Left", new[] { 0, 10, 11 }) { }
         }
 
-        public class DiadRight : Scheme {
+        private class DiadRight : Scheme {
             public DiadRight() : base ("Diad Right", new[] { 0, 2 }) { }
         }
 
-        public class DiadLeft : Scheme {
+        private class DiadLeft : Scheme {
             public DiadLeft() : base ("Diad Left", new[] { 0, 10 }) { }
         }
 
-        private readonly Dictionary<Schemes, IScheme> _schemes = new Dictionary<Schemes, IScheme> {
+        private readonly Dictionary<Schemes, Scheme> _schemes = new Dictionary<Schemes, Scheme> {
             { Schemes.Complementary, new Complementary()},
             { Schemes.SplitComplementary, new SplitComplementary()},
             { Schemes.DoubleComplementaryRight, new DoubleComplementaryRight()},
