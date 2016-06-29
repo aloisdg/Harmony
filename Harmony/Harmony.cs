@@ -132,8 +132,7 @@ namespace Harmony {
             DiadLeft
         }
 
-        private static IEnumerable<Color> Harmonize(Color color, IEnumerable<int> degrees) {
-            var hsl = color.ToHsl ();
+        private static IEnumerable<Color> Harmonize(Hsl hsl, IEnumerable<int> degrees) {
             return degrees.Select (degree => new Hsl (
                 (360 + (hsl.H + 30 * degree)) % 360, hsl.S, hsl.L
             ).ToColor ());
@@ -160,14 +159,15 @@ namespace Harmony {
         //}
 
         public IEnumerable<KeyValuePair<Schemes, IEnumerable<Color>>> HarmonizeAll(Color color) {
+            var hsl = color.ToHsl ();
             return _schemes.Select (scheme =>
-             new KeyValuePair<Schemes, IEnumerable<Color>> (scheme.Key, Harmonize (color, scheme.Value.Degrees)));
+             new KeyValuePair<Schemes, IEnumerable<Color>> (scheme.Key, Harmonize (hsl, scheme.Value.Degrees)));
         }
 
         public IEnumerable<Color> Harmonize(Color color, Schemes scheme) {
             if (!_schemes.ContainsKey (scheme))
                 throw new KeyNotFoundException (nameof (scheme)); // useless?
-            return Harmonize (color, _schemes[scheme].Degrees);
+            return Harmonize (color.ToHsl (), _schemes[scheme].Degrees);
         }
 
         public string GetName(Schemes scheme) {
