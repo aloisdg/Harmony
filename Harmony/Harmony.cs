@@ -43,19 +43,58 @@ namespace Harmony {
             }
         }
 
-        public class Complementary : Scheme { public Complementary() : base ("Complementary", new[] { 0, 6 }) { } }
-        public class SplitComplementary : Scheme { public SplitComplementary() : base ("Split Complementary", new[] { 0, 5, 7 }) { } }
-        public class DoubleComplementaryRight : Scheme { public DoubleComplementaryRight() : base ("Double Complementary Right", new[] { 0, 1, 6, 7 }) { } }
-        public class DoubleComplementaryLeft : Scheme { public DoubleComplementaryLeft() : base ("Double Complementary Left", new[] { 0, 5, 6, 11 }) { } }
-        public class Triadic : Scheme { public Triadic() : base ("Triadic", new[] { 0, 4, 8 }) { } }
-        public class TetradicRight : Scheme { public TetradicRight() : base ("Tetradic Right", new[] { 0, 2, 6, 8 }) { } }
-        public class Tetradic : Scheme { public Tetradic() : base ("Tetradic", new[] { 0, 3, 6, 9 }) { } } // also called square
-        public class TetradicLeft : Scheme { public TetradicLeft() : base ("Tetradic Left", new[] { 0, 4, 6, 10 }) { } }
-        public class AnalogousRight : Scheme { public AnalogousRight() : base ("Analogous Right", new[] { 0, 1, 2 }) { } }
-        public class Analogous : Scheme { public Analogous() : base ("Analogous", new[] { 0, 1, 11 }) { } }
-        public class AnalogousLeft : Scheme { public AnalogousLeft() : base ("Analogous Left", new[] { 0, 10, 11 }) { } }
-        public class DiadRight : Scheme { public DiadRight() : base ("Diad Right", new[] { 0, 2 }) { } }
-        public class DiadLeft : Scheme { public DiadLeft() : base ("Diad Left", new[] { 0, 10 }) { } }
+        public class Complementary : Scheme {
+            public Complementary() : base ("Complementary", new[] { 0, 6 }) { }
+        }
+
+        public class SplitComplementary : Scheme {
+            public SplitComplementary() : base ("Split Complementary", new[] { 0, 5, 7 }) { }
+        }
+
+        public class DoubleComplementaryRight : Scheme {
+            public DoubleComplementaryRight() : base ("Double Complementary Right", new[] { 0, 1, 6, 7 }) { }
+        }
+
+        public class DoubleComplementaryLeft : Scheme {
+            public DoubleComplementaryLeft() : base ("Double Complementary Left", new[] { 0, 5, 6, 11 }) { }
+        }
+
+        public class Triadic : Scheme {
+            public Triadic() : base ("Triadic", new[] { 0, 4, 8 }) { }
+        }
+
+        public class TetradicRight : Scheme {
+            public TetradicRight() : base ("Tetradic Right", new[] { 0, 2, 6, 8 }) { }
+        }
+
+        // also called square
+        public class Tetradic : Scheme {
+            public Tetradic() : base ("Tetradic", new[] { 0, 3, 6, 9 }) { }
+        }
+
+        public class TetradicLeft : Scheme {
+            public TetradicLeft() : base ("Tetradic Left", new[] { 0, 4, 6, 10 }) { }
+        }
+
+        public class AnalogousRight : Scheme {
+            public AnalogousRight() : base ("Analogous Right", new[] { 0, 1, 2 }) { }
+        }
+
+        public class Analogous : Scheme {
+            public Analogous() : base ("Analogous", new[] { 0, 1, 11 }) { }
+        }
+
+        public class AnalogousLeft : Scheme {
+            public AnalogousLeft() : base ("Analogous Left", new[] { 0, 10, 11 }) { }
+        }
+
+        public class DiadRight : Scheme {
+            public DiadRight() : base ("Diad Right", new[] { 0, 2 }) { }
+        }
+
+        public class DiadLeft : Scheme {
+            public DiadLeft() : base ("Diad Left", new[] { 0, 10 }) { }
+        }
 
         private readonly Dictionary<Schemes, IScheme> _schemes = new Dictionary<Schemes, IScheme> {
             { Schemes.Complementary, new Complementary()},
