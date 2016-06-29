@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Harmony.ColorSpace;
 using NUnit.Framework;
 
 namespace Harmony.Tests {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Harmony.ColorSpace;
 
 // inspiration
 // https://github.com/skratchdot/color-harmony
@@ -52,6 +53,10 @@ namespace Harmony {
             { Schemes.DiadLeft, "Diad Left" }
         };
 
+        /// <summary>
+        /// Color schemes come out of the color wheel and the different color schemes are
+        /// different combinations of colors based on their relationship to each other.
+        /// </summary>
         public enum Schemes {
             Complementary,
             SplitComplementary,
