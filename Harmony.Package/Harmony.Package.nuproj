@@ -19,7 +19,7 @@
   <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
   <PropertyGroup Label="Configuration">
     <Id>Harmony</Id>
-    <Version>0.3.0-alpha</Version>
+    <Version>0.3.0</Version>
     <Title>Harmony</Title>
     <Authors>aloisdg</Authors>
     <Owners>aloisdg</Owners>
