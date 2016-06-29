@@ -81,11 +81,9 @@ namespace Harmony {
 
         private static IEnumerable<Color> Harmonize(Color color, IEnumerable<int> degrees) {
             var hsl = color.ToHsl ();
-            return degrees.Select (degree => new Hsl {
-                H = (360 + (hsl.H + 30 * degree)) % 360,
-                S = hsl.S,
-                L = hsl.L
-            }.ToColor ());
+            return degrees.Select (degree => new Hsl (
+                (360 + (hsl.H + 30 * degree)) % 360, hsl.S, hsl.L
+            ).ToColor ());
         }
 
         // http://stackoverflow.com/questions/801406/c-create-a-lighter-darker-color-based-on-a-system-color
@@ -151,11 +149,9 @@ namespace Harmony {
                 = x => ((double) x - 3) * 5;
 
             var hsl = color.ToHsl ();
-            return Enumerable.Range (0, 7).Select (shade => new Hsl {
-                H = hsl.H,
-                S = hsl.S,
-                L = setBetween (hsl.L + getLightness (shade), 0, 100)
-            }.ToColor ());
+            return Enumerable.Range (0, 7).Select (shade => new Hsl (
+                hsl.H, hsl.S, setBetween (hsl.L + getLightness (shade), 0, 100)
+            ).ToColor ());
         }
 
         public Temperature GetTemperature(Color color) {

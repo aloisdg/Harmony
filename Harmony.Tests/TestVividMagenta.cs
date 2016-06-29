@@ -162,7 +162,7 @@ namespace Harmony.Tests {
         [TestCase (400, ExpectedResult = 77)]
         [TestCase (40, ExpectedResult = 77)]
         public short TestTemperatureAsNumber(int hue) { // from -100 to 100
-            var celsius = _harmony.GetTemperatureAsNumber (ToColor (new Hsl { H = hue, L = 50, S = 50}));
+            var celsius = _harmony.GetTemperatureAsNumber (ToColor (new Hsl (hue, 50, 50)));
             return celsius;
         }
 

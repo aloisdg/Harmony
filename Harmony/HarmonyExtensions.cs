@@ -12,9 +12,7 @@ namespace Harmony
         }
 
         internal static Hsl ToHsl(this Color color) {
-            var hsl = new Hsl ();
-            hsl.Initialize (new Rgb { R = color.R, G = color.G, B = color.B });
-            return hsl;
+            return new Hsl (new Rgb (color.R, color.G, color.B));
         }
     }
 }

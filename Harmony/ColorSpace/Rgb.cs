@@ -1,17 +1,19 @@
 namespace Harmony.ColorSpace {
-    internal class Rgb : AColorSpace, IRgb {
-        public double R { get; set; }
-        public double G { get; set; }
-        public double B { get; set; }
+    internal class Rgb {
+        public double R { get; }
+        public double G { get; }
+        public double B { get; }
 
-        public override void Initialize(IRgb color) {
+        public Rgb(double r, double g, double b) {
+            R = r;
+            G = g;
+            B = b;
+        }
+
+        public Rgb(Rgb color) {
             R = color.R;
             G = color.G;
             B = color.B;
-        }
-
-        public override IRgb ToRgb() {
-            return this;
         }
     }
 }

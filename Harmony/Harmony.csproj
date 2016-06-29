@@ -35,12 +35,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ColorSpace\Hsl.cs" />
-    <Compile Include="ColorSpace\ColorSpace.cs" />
     <Compile Include="Harmony.cs" />
     <Compile Include="HarmonyExtensions.cs" />
-    <Compile Include="ColorSpace\IColorSpace.cs" />
-    <Compile Include="ColorSpace\IHsl.cs" />
-    <Compile Include="ColorSpace\IRgb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ColorSpace\Rgb.cs" />
     <Compile Include="Temperature.cs" />

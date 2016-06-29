@@ -3,20 +3,26 @@ using System.Drawing;
 using System.Runtime.CompilerServices;
 
 namespace Harmony.ColorSpace {
-    internal class Hsl : AColorSpace, IHsl {
-        public double H { get; set; }
-        public double S { get; set; }
-        public double L { get; set; }
+    internal class Hsl {
+        public double H { get; }
+        public double S { get; }
+        public double L { get; }
 
-        public override void Initialize(IRgb color) {
-            // TODO Losing precision
-            var msColor = Color.FromArgb ((int) color.R, (int) color.G, (int) color.B);
-            H = msColor.GetHue ();
-            S = msColor.GetSaturation () * 100.0;
-            L = msColor.GetBrightness () * 100.0;
+        public Hsl(double h, double s, double l) {
+            H = h;
+            S = s;
+            L = l;
         }
 
-        public override IRgb ToRgb() {
+        public Hsl(Rgb rgb) {
+            // TODO Losing precision
+            var color = Color.FromArgb ((int) rgb.R, (int) rgb.G, (int) rgb.B);
+            H = color.GetHue ();
+            S = color.GetSaturation () * 100.0;
+            L = color.GetBrightness () * 100.0;
+        }
+
+        public Rgb ToRgb() {
             var rangedH = H / 360.0;
             var r = 0.0;
             var g = 0.0;
@@ -25,11 +31,7 @@ namespace Harmony.ColorSpace {
             var l = L / 100.0;
 
             if (BasicallyEqualTo (l, 0))
-                return new Rgb {
-                    R = 255.0 * r,
-                    G = 255.0 * g,
-                    B = 255.0 * b
-                };
+                return new Rgb (255.0 * r, 255.0 * g, 255.0 * b);
             if (BasicallyEqualTo (s, 0))
                 r = g = b = l;
             else {
@@ -40,11 +42,7 @@ namespace Harmony.ColorSpace {
                 g = GetColorComponent (temp1, temp2, rangedH);
                 b = GetColorComponent (temp1, temp2, rangedH - 1.0 / 3.0);
             }
-            return new Rgb {
-                R = 255.0 * r,
-                G = 255.0 * g,
-                B = 255.0 * b
-            };
+            return new Rgb (255.0 * r, 255.0 * g, 255.0 * b);
         }
 
         private static double GetColorComponent(double temp1, double temp2, double temp3) {
