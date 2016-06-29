@@ -29,11 +29,11 @@ namespace Harmony {
             IEnumerable<int> Degrees { get; }
         }
 
-        public class Scheme : IScheme {
+        public abstract class Scheme : IScheme {
             public string Name { get; }
             public IEnumerable<int> Degrees { get; }
 
-            public Scheme(string name, IEnumerable<int> degrees) {
+            protected Scheme(string name, IEnumerable<int> degrees) {
                 Name = name;
                 Degrees = degrees;
             }
@@ -43,20 +43,34 @@ namespace Harmony {
             }
         }
 
+        public class Complementary : Scheme { public Complementary() : base ("Complementary", new[] { 0, 6 }) { } }
+        public class SplitComplementary : Scheme { public SplitComplementary() : base ("Split Complementary", new[] { 0, 5, 7 }) { } }
+        public class DoubleComplementaryRight : Scheme { public DoubleComplementaryRight() : base ("Double Complementary Right", new[] { 0, 1, 6, 7 }) { } }
+        public class DoubleComplementaryLeft : Scheme { public DoubleComplementaryLeft() : base ("Double Complementary Left", new[] { 0, 5, 6, 11 }) { } }
+        public class Triadic : Scheme { public Triadic() : base ("Triadic", new[] { 0, 4, 8 }) { } }
+        public class TetradicRight : Scheme { public TetradicRight() : base ("Tetradic Right", new[] { 0, 2, 6, 8 }) { } }
+        public class Tetradic : Scheme { public Tetradic() : base ("Tetradic", new[] { 0, 3, 6, 9 }) { } } // also called square
+        public class TetradicLeft : Scheme { public TetradicLeft() : base ("Tetradic Left", new[] { 0, 4, 6, 10 }) { } }
+        public class AnalogousRight : Scheme { public AnalogousRight() : base ("Analogous Right", new[] { 0, 1, 2 }) { } }
+        public class Analogous : Scheme { public Analogous() : base ("Analogous", new[] { 0, 1, 11 }) { } }
+        public class AnalogousLeft : Scheme { public AnalogousLeft() : base ("Analogous Left", new[] { 0, 10, 11 }) { } }
+        public class DiadRight : Scheme { public DiadRight() : base ("Diad Right", new[] { 0, 2 }) { } }
+        public class DiadLeft : Scheme { public DiadLeft() : base ("Diad Left", new[] { 0, 10 }) { } }
+
         private readonly Dictionary<Schemes, IScheme> _schemes = new Dictionary<Schemes, IScheme> {
-            { Schemes.Complementary, new Scheme("Complementary", new[] { 0, 6 })},
-            { Schemes.SplitComplementary, new Scheme("Split Complementary", new[] { 0, 5, 7 })},
-            { Schemes.DoubleComplementaryRight, new Scheme("Double Complementary Right", new[] { 0, 1, 6, 7 })},
-            { Schemes.DoubleComplementaryLeft, new Scheme("Double Complementary Left", new[] { 0, 5, 6, 11 })},
-            { Schemes.Triadic, new Scheme("Triadic", new[] { 0, 4, 8 })},
-            { Schemes.TetradicRight, new Scheme("Tetradic Right", new[] { 0, 2, 6, 8 })},
-            { Schemes.Tetradic, new Scheme("Tetradic", new[] { 0, 3, 6, 9 })}, // also called square
-            { Schemes.TetradicLeft, new Scheme("Tetradic Left", new[] { 0, 4, 6, 10 })},
-            { Schemes.AnalogousRight, new Scheme("Analogous Right", new[] { 0, 1, 2 })},
-            { Schemes.Analogous, new Scheme("Analogous", new[] { 0, 1, 11 })},
-            { Schemes.AnalogousLeft, new Scheme("Analogous Left", new[] { 0, 10, 11 })},
-            { Schemes.DiadRight, new Scheme("Diad Right", new[] { 0, 2 })},
-            { Schemes.DiadLeft, new Scheme("Diad Left", new[] { 0, 10 })}
+            { Schemes.Complementary, new Complementary()},
+            { Schemes.SplitComplementary, new SplitComplementary()},
+            { Schemes.DoubleComplementaryRight, new DoubleComplementaryRight()},
+            { Schemes.DoubleComplementaryLeft, new DoubleComplementaryLeft()},
+            { Schemes.Triadic, new Triadic()},
+            { Schemes.TetradicRight, new TetradicRight()},
+            { Schemes.Tetradic, new Tetradic()},
+            { Schemes.TetradicLeft, new TetradicLeft()},
+            { Schemes.AnalogousRight, new AnalogousRight()},
+            { Schemes.Analogous, new Analogous()},
+            { Schemes.AnalogousLeft, new AnalogousLeft()},
+            { Schemes.DiadRight, new DiadRight()},
+            { Schemes.DiadLeft, new DiadLeft()}
         };
 
         /// <summary>
@@ -104,12 +118,6 @@ namespace Harmony {
         //        g += scaleG;
         //        b += scaleB;
         //    }
-        //}
-
-        //public void Add(string name, int[] degrees) {
-        //    if (_schemes.ContainsKey (name)) //maybe useless
-        //        throw new ArgumentException ("An item with the same key has already been added.");
-        //    _schemes.Add (name, degrees);
         //}
 
         public IEnumerable<KeyValuePair<Schemes, IEnumerable<Color>>> HarmonizeAll(Color color) {
