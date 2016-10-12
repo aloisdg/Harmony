@@ -35,17 +35,21 @@ namespace Harmony {
         public readonly Temperature Temperature;
         public readonly short TemperatureDegree;
 
-        private static IEnumerable<Color> BuildHarmonies(IHsl hsl) => Enumerable.Range (0, 12).Select (degree => new Hsl {
-            H = (360 + (hsl.H + 30 * degree)) % 360,
-            S = hsl.S,
-            L = hsl.L
-        }.ToColor ());
+        private static IEnumerable<Color> BuildHarmonies(IHsl hsl) => Enumerable
+            .Range (0, 12)
+            .Select (degree => new Hsl {
+                H = (360 + (hsl.H + 30 * degree)) % 360,
+                S = hsl.S,
+                L = hsl.L
+            }.ToColor ());
 
-        private static IEnumerable<Color> BuildMonochomatic(IHsl hsl) => Enumerable.Range (0, 7).Select (shade => new Hsl {
-            H = hsl.H,
-            S = hsl.S,
-            L = Limit (hsl.L + Enlight (shade), 0, 100)
-        }.ToColor ());
+        private static IEnumerable<Color> BuildMonochomatic(IHsl hsl) => Enumerable
+            .Range (0, 7)
+            .Select (shade => new Hsl {
+                H = hsl.H,
+                S = hsl.S,
+                L = Limit (hsl.L + Enlight (shade), 0, 100)
+            }.ToColor ());
 
         private static double Limit(double x, double min, double max) => x > min ? x < max ? x : max : min;
 
@@ -76,10 +80,13 @@ namespace Harmony {
             Monochromatic = BuildMonochomatic (hsl).ToArray ();
 
             Temperature = MoveToZero (hsl.H) < 180 ? Temperature.Warm : Temperature.Cool;
+            TemperatureDegree = HowHotIsIt (hsl.H);
+        }
 
+        private static short HowHotIsIt(double hue) {
             const int limit = 100;
             const int maxWarm = 90;
-            var hue = MoveToZero (Math.Round (color.ToHsl ().H));
+            hue = MoveToZero (Math.Round (hue));
 
             var shittyfix = false;
             if (hue > 180) {
@@ -90,7 +97,7 @@ namespace Harmony {
 
             if (shittyfix)
                 temperature = -temperature;
-            TemperatureDegree = (short) temperature;
+            return (short) temperature;
         }
     }
 }
